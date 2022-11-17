@@ -24,12 +24,35 @@ def g():
     from hsml.schema import Schema
     from hsml.model_schema import ModelSchema
     import joblib
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.model_selection import GridSearchCV, cross_val_score
 
     # You have to set the environment variable 'HOPSWORKS_API_KEY' for login to succeed
     project = hopsworks.login()
     # fs is a reference to the Hopsworks Feature Store
     fs = project.get_feature_store()
 
+    # My code
+    X_train = train.drop('Survived', axis=1)
+    y_train = train['Survived']
+    X_test = test.drop('Survived', axis=1)
+    y_test = test['Survived']
+    # Training
+    rs = 1
+    rf = RandomForestClassifier(random_state=rs)
+    rf.fit(X_train, y_train)
+    acc_rf = round(rf.score(X_train, y_train), 2)
+
+    # scores
+    scores_rf = cross_val_score(rf, X_train, y_train, cv=5, scoring='accuracy')
+
+    scores_results = pd.DataFrame({'Model': ['Random Forest'],
+                                   'Accuracy_score': [scores_rf.mean()],
+                                   'Standard Deviation': [scores_rf.std()]})
+    scores_results
+
+
+'''
     # The feature view is the input set of features for your model. The features can come from different feature groups.    
     # You can select features from different feature groups and join them together to create a feature view
     try: 
@@ -92,7 +115,7 @@ def g():
     
     # Upload the model to the model registry, including all files in 'model_dir'
     iris_model.save(model_dir)
-    
+'''
 if __name__ == "__main__":
     if LOCAL == True :
         g()
