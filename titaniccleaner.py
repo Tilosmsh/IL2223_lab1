@@ -85,8 +85,7 @@ def clean(titanic):
         'deck_1', 'deck_2', 'deck_3', 'deck_4', 'deck_5', 'deck_6', 'deck_7',
         'embarked_1', 'embarked_2', 
         'survived']].copy()
-        
-    # print(t.head())
 
+    t = t.drop('idx', axis=1)
     return t
     
