@@ -80,12 +80,11 @@ def clean(titanic):
                    columns=['deck',
                             'embarked'],
                    drop_first=True)
-    t = t[['idx', 'class', 'sex', 'age', 
+    t = t[['class', 'sex', 'age', 
         'sibs', 'par_ch', 'fare',
         'deck_1', 'deck_2', 'deck_3', 'deck_4', 'deck_5', 'deck_6', 'deck_7',
         'embarked_1', 'embarked_2', 
         'survived']].copy()
 
-    t = t.drop('idx', axis=1)
     return t
     
