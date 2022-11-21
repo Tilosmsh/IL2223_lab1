@@ -75,7 +75,7 @@ def g():
         os.mkdir(model_dir)
 
     # Save both our model and the confusion matrix to 'model_dir', whose contents will be uploaded to the model registry
-    joblib.dump(model, model_dir + "/titanic_model.pkl")
+    joblib.dump(model, model_dir + "/titanic_modal.pkl")
     fig.savefig(model_dir + "/confusion_matrix.png")
 
     # Specify the schema of the model's input/output using the features (X_train) and labels (y_train)

@@ -29,7 +29,7 @@ def g():
     mr = project.get_model_registry()
     model = mr.get_model("titanic_modal", version=1)
     model_dir = model.download()
-    model = joblib.load(model_dir + "/titanic_model.pkl")
+    model = joblib.load(model_dir + "/titanic_modal.pkl")
     
     feature_view = fs.get_feature_view(name="titanic_modal", version=1)
     batch_data = feature_view.get_batch_data()
