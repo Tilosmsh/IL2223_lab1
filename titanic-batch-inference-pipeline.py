@@ -37,8 +37,8 @@ def g():
     y_pred = model.predict(batch_data)
     # print(y_pred)
     titanic = y_pred[y_pred.size-1]
-    titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if titanic else "dead.jpg")
-    print("Passenger predicted: " + ("survived.jpg" if titanic else "dead.jpg"))
+    titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if titanic==1 else "dead.jpg")
+    print("Passenger predicted: " + ("dead" if titanic==0. else "survived"))
     img = Image.open(requests.get(titanic_url, stream=True).raw)
     img.save("./latest_titanic.png")
     dataset_api = project.get_dataset_api()    
@@ -48,8 +48,8 @@ def g():
     df = titanic_fg.read()
     # print(df["variety"])
     label = df.iloc[-1]["survived"] 
-    label_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if label else "dead.jpg")
-    print("Titanic actual: " + label)
+    label_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if label==1 else "dead.jpg")
+    print("Titanic actual: " + ("dead" if titanic==0. else "survived"))
     img = Image.open(requests.get(label_url, stream=True).raw)            
     img.save("./actual_titanic.png")
     dataset_api.upload("./actual_titanic.png", "Resources/images", overwrite=True)
@@ -84,7 +84,7 @@ def g():
 
     # Only create the confusion matrix when our iris_predictions feature group has examples of all 3 iris flowers
     print("Number of different Titanic predictions to date: " + str(predictions.value_counts().count()))
-    if predictions.value_counts().count() == 2:
+    if predictions.value_counts().count() >= 2:
         results = confusion_matrix(labels, predictions)
     
         df_cm = pd.DataFrame(results, ['True Survived', 'True Dead'],
