@@ -10,9 +10,7 @@ import numpy as np
 
 def clean(titanic):
     ## Read Data
-    t = titanic
-    cols = t.columns
-
+    t = titanic.copy()
     # t.head()
 
 
@@ -25,7 +23,7 @@ def clean(titanic):
     t.reset_index(drop=True)
     t['idx'] = t.index
     t = t[['idx','Pclass','Sex','Age','SibSp','Parch','Fare','Deck','Embarked','Survived']].copy()
-    t.columns = ['idx','class','sex','age','sibs','par_ch','fare','deck','embarked','survived']
+    t.columns = ['idx','pclass','sex','age','sibs','par_ch','fare','deck','embarked','survived']
 
     # Deal with NaN
     # Fill NaN values except for deck and embarked with the mean
@@ -42,7 +40,7 @@ def clean(titanic):
 
     ## Convert Categorical (nominal, not ordinal) data to Numeric data
 
-    t['class raw'] = t['class']
+    t['pclass raw'] = t['pclass']
     t['sex raw'] = t['sex']
     t['par_ch raw'] = t['par_ch']
     t['fare raw'] = t['fare']
@@ -50,27 +48,27 @@ def clean(titanic):
     t['embarked raw'] = t['embarked']
     t['survived raw'] = t['survived']
 
-    t['class'] = t['class'].astype('category')
-    t['class'] = t['class'].cat.codes
-    # t[['class','class raw','idx']].groupby(['class',
-    #                                         'class raw']).count()
+    t['pclass'] = t['pclass'].astype('category')
+    t['pclass'] = t['pclass'].cat.codes
+    t[['pclass','pclass raw','idx']].groupby(['pclass',
+                                            'pclass raw']).count()
     
     t['sex'] = t['sex'].astype('category')
     t['sex'] = t['sex'].cat.codes
-    # t[['sex','sex raw','idx']].groupby(['sex',
-    #                                     'sex raw']).count()
+    t[['sex','sex raw','idx']].groupby(['sex',
+                                        'sex raw']).count()
                     
     t['deck'] = t['deck'].astype('category')
     t['deck'] = t['deck'].cat.codes
-    # t[['deck','deck raw','idx']].groupby(['deck',
-    #                                   'deck raw']).count()
+    t[['deck','deck raw','idx']].groupby(['deck',
+                                      'deck raw']).count()
 
     t['embarked'] = t['embarked'].astype('category')
     t['embarked'] = t['embarked'].cat.codes
-    # t[['embarked','embarked raw','idx']].groupby(['embarked',
-    #                                           'embarked raw']).count()
+    t[['embarked','embarked raw','idx']].groupby(['embarked',
+                                              'embarked raw']).count()
 
-    t = t[['idx','class','sex','age','sibs','par_ch','fare','deck','embarked','survived']].copy()
+    t = t[['idx','pclass','sex','age','sibs','par_ch','fare','deck','embarked','survived']].copy()
     # print(t.shape)
     # t.head()
 
@@ -80,7 +78,7 @@ def clean(titanic):
                    columns=['deck',
                             'embarked'],
                    drop_first=True)
-    t = t[['class', 'sex', 'age', 
+    t = t[['pclass', 'sex', 'age', 
         'sibs', 'par_ch', 'fare',
         'deck_1', 'deck_2', 'deck_3', 'deck_4', 'deck_5', 'deck_6', 'deck_7',
         'embarked_1', 'embarked_2', 
