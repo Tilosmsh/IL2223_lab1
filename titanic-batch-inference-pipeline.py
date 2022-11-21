@@ -37,8 +37,8 @@ def g():
     y_pred = model.predict(batch_data)
     # print(y_pred)
     titanic = y_pred[y_pred.size-1]
-    titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if label else "dead.jpg")
-    print("Passenger predicted: " + ("survived.jpg" if label else "dead.jpg"))
+    titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if titanic else "dead.jpg")
+    print("Passenger predicted: " + ("survived.jpg" if titanic else "dead.jpg"))
     img = Image.open(requests.get(titanic_url, stream=True).raw)
     img.save("./latest_titanic.png")
     dataset_api = project.get_dataset_api()    
