@@ -37,8 +37,8 @@ def g():
     y_pred = model.predict(batch_data)
     # print(y_pred)
     titanic = y_pred[y_pred.size-1]
-    titanic_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + titanic + ".png" ##??
-    print("Flower predicted: " + titanic)
+    titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if label else "dead.jpg")
+    print("Passenger predicted: " + ("survived.jpg" if label else "dead.jpg"))
     img = Image.open(requests.get(titanic_url, stream=True).raw)
     img.save("./latest_titanic.png")
     dataset_api = project.get_dataset_api()    
@@ -47,8 +47,8 @@ def g():
     titanic_fg = fs.get_feature_group(name="titanic_modal", version=1)
     df = titanic_fg.read()
     # print(df["variety"])
-    label = df.iloc[-1]["survived"]  ##
-    label_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + label + ".png" ##?
+    label = df.iloc[-1]["survived"] 
+    label_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if label else "dead.jpg")
     print("Titanic actual: " + label)
     img = Image.open(requests.get(label_url, stream=True).raw)            
     img.save("./actual_titanic.png")
@@ -76,8 +76,8 @@ def g():
 
 
     df_recent = history_df.tail(5)
-    dfi.export(df_recent, './df_recent.png', table_conversion = 'matplotlib')
-    dataset_api.upload("./df_recent.png", "Resources/images", overwrite=True)
+    dfi.export(df_recent, './df_recent_titanic.png', table_conversion = 'matplotlib')
+    dataset_api.upload("./df_recent_titanic.png", "Resources/images", overwrite=True)
     
     predictions = history_df[['prediction']]
     labels = history_df[['label']]
@@ -92,11 +92,11 @@ def g():
     
         cm = sns.heatmap(df_cm, annot=True)
         fig = cm.get_figure()
-        fig.savefig("./confusion_matrix.png")
-        dataset_api.upload("./confusion_matrix.png", "Resources/images", overwrite=True)
+        fig.savefig("./confusion_matrix_titanic.png")
+        dataset_api.upload("./confusion_matrix_titanic.png", "Resources/images", overwrite=True)
     else:
-        print("You need 3 different flower predictions to create the confusion matrix.") ##
-        print("Run the batch inference pipeline more times until you get 3 different iris flower predictions")  ##
+        print("You need 2 different titanic predictions to create the confusion matrix.") ##
+        print("Run the batch inference pipeline more times until you get 2 different titanic predictions")  ##
 
 
 if __name__ == "__main__":
