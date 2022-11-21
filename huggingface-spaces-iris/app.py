@@ -6,7 +6,7 @@ import requests
 import hopsworks
 import joblib
 
-project = hopsworks.login()
+project = hopsworks.login(api_key_value="CDqcnm3gyfxjyCO8.TZwOClLOwCqDp33vX0P5Q2nsvNNyEhfBMArwNoPjnb9tUSSKq6I8X35HQ5D2tlJ7")
 fs = project.get_feature_store()
 
 

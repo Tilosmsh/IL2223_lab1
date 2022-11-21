@@ -2,7 +2,7 @@ import gradio as gr
 from PIL import Image
 import hopsworks
 
-project = hopsworks.login()
+project = hopsworks.login(api_key_value="CDqcnm3gyfxjyCO8.TZwOClLOwCqDp33vX0P5Q2nsvNNyEhfBMArwNoPjnb9tUSSKq6I8X35HQ5D2tlJ7")
 fs = project.get_feature_store()
 
 dataset_api = project.get_dataset_api()
