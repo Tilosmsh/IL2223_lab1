@@ -12,6 +12,7 @@ if LOCAL == False:
 
 def g():
     import pandas as pd
+    import numpy as np
     import hopsworks
     import joblib
     import datetime
@@ -35,8 +36,10 @@ def g():
     batch_data = feature_view.get_batch_data()
     
     y_pred = model.predict(batch_data)
-    print(y_pred) ##
+    # print(y_pred) ##
+    person_select = np.random.randint(y_pred.size)
     titanic = y_pred[y_pred.size-1]
+    titanic = y_pred[person_select]
     titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + str(titanic) + ".jpg"
     print("Passenger predicted: " + str(titanic))
     img = Image.open(requests.get(titanic_url, stream=True).raw)
@@ -46,9 +49,11 @@ def g():
     
     titanic_fg = fs.get_feature_group(name="titanic_modal", version=1)
     df = titanic_fg.read()
-    print(df["survived"]) ##
-    label = df.iloc[-1]["survived"]
-    label_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + str(label) + ".jpg"
+    # print(df["survived"]) ##
+    # label = df.iloc[-1]["survived"]
+    label = df.iloc[person_select]["survived"]
+    # print(label)
+    label_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + str(int(label)) + ".jpg"
     print("Titanic actual: " + str(label))
     img = Image.open(requests.get(label_url, stream=True).raw)            
     img.save("./actual_titanic.png")
