@@ -23,7 +23,8 @@ def g():
     import seaborn as sns
     import requests
 
-    project = hopsworks.login()
+
+    project = hopsworks.login(api_key_value="CDqcnm3gyfxjyCO8.TZwOClLOwCqDp33vX0P5Q2nsvNNyEhfBMArwNoPjnb9tUSSKq6I8X35HQ5D2tlJ7")
     fs = project.get_feature_store()
     
     mr = project.get_model_registry()
@@ -35,9 +36,9 @@ def g():
     batch_data = feature_view.get_batch_data()
     
     y_pred = model.predict(batch_data)
-    # print(y_pred)
+    print(y_pred)
     titanic = y_pred[y_pred.size-1]
-    titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if titanic else "dead.jpg")
+    titanic_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + titanic + ".jpg"
     print("Passenger predicted: " + ("survived.jpg" if titanic else "dead.jpg"))
     img = Image.open(requests.get(titanic_url, stream=True).raw)
     img.save("./latest_titanic.png")
@@ -48,8 +49,8 @@ def g():
     df = titanic_fg.read()
     # print(df["variety"])
     label = df.iloc[-1]["survived"] 
-    label_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + ("survived.jpg" if label else "dead.jpg")
-    print("Titanic actual: " + label)
+    label_url = "https://raw.githubusercontent.com/Tilosmsh/IL2223_lab1/main/images/" + label + ".jpg"
+    print("Titanic actual: " + str(label))
     img = Image.open(requests.get(label_url, stream=True).raw)            
     img.save("./actual_titanic.png")
     dataset_api.upload("./actual_titanic.png", "Resources/images", overwrite=True)
