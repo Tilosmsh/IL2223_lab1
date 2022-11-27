@@ -8,8 +8,8 @@ The Titanic dataset is first cleaned with titaniccleaner.py. Then, this service 
 Hopsworks, trains the models and registers the models with Hopsworks, with the codes run on Modal.
 The service works as gradio applications on Hugging Face.
 
-- [Iris app on huggingface](https://huggingface.co/spaces/tilos/Iris)
-- [Iris monitor on huggingface](https://huggingface.co/spaces/tilos/iris_Monitor)
+- [Iris app on huggingface](https://huggingface.co/spaces/tilos/iris)
+- [Iris monitor on huggingface](https://huggingface.co/spaces/tilos/iris_monitor)
 - [Titanic app on huggingface](https://huggingface.co/spaces/tilos/Titanic)
 - [Titanic monitor on huggingface](https://huggingface.co/spaces/tilos/Titanic_Monitor)
 
